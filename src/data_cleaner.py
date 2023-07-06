@@ -24,6 +24,8 @@ def clean_data(properties):
     properties.loc[properties['Price'] <= 0, 'Price'] = 'Unknown'
     properties.dropna(inplace=True)
     properties.reset_index(drop=True, inplace=True)
+    properties = properties.loc[~((properties['Region'] == '0') | properties['Region'].isnull())]
+
 
     return properties
 
@@ -36,23 +38,41 @@ def analyze_data(properties):
     print("Number of rows:", num_rows)
     print("Number of columns:", num_columns)
     
+    """
+    Filter out the properties without a price. Then we will calculate the average of evry city.
+    Then we merge the information with tht region information cause i couldn't find provinces.
+    Then we calculate the average per region. And sort it by regions average descending.
+    """
     filtered_properties = properties[properties['Price'] != 'Unknown']
-
-    # Calculate average price per city
     average_price_per_city = filtered_properties.groupby('Stad')['Price'].mean().reset_index()
+    average_price_per_city = average_price_per_city.merge(properties[['Stad', 'Region']], on='Stad')
+    average_price_per_region = average_price_per_city.groupby('Region')['Price'].mean().reset_index()
+    average_price_per_region.sort_values('Price', ascending=False, inplace=True)
 
-    # Sort cities by average price in descending order
-    average_price_per_city.sort_values('Price', ascending=False, inplace=True)
-
-    # Plot average price per city
+    """
+    Plot average per region
+    """
     plt.figure(figsize=(12, 6))
-    sns.barplot(data=average_price_per_city, x='Stad', y='Price', palette='viridis')
-    plt.title('Average Price by City')
-    plt.xlabel('City')
+    sns.barplot(data=average_price_per_region, x='Region', y='Price', palette='viridis')
+    plt.title('Average Price by Region')
+    plt.xlabel('Region')
     plt.ylabel('Average Price')
     plt.xticks(rotation=90)
     plt.tight_layout()
     plt.show()
+
+    # Select only numeric columns for correlation calculation
+    numeric_columns = properties.select_dtypes(include=['float64', 'int64']).columns
+    numeric_properties = properties[numeric_columns]
+
+    # Calculate correlation matrix
+    correlation_matrix = numeric_properties.corr()
+
+    # Sort variables by their correlation with the price
+    price_column = properties['Price']
+    price_correlation = correlation_matrix[price_column].abs().sort_values(ascending=False)
+
+    print(price_correlation)
 
 cldata = clean_data(properties)
 analyze_data(cldata)
