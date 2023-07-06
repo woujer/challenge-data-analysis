@@ -38,14 +38,20 @@ def analyze_data(properties):
     
     filtered_properties = properties[properties['Price'] != 'Unknown']
 
-    # Calculate average price per region
-    average_price_per_region = filtered_properties.groupby('Region')['Price'].mean().reset_index()
+    # Calculate average price per city
+    average_price_per_city = filtered_properties.groupby('Stad')['Price'].mean().reset_index()
 
-    # Create bar plot
-    sns.barplot(data=average_price_per_region, x='Region', y='Price')
-    plt.title('Average Price by Region')
-    plt.xlabel('Region')
+    # Sort cities by average price in descending order
+    average_price_per_city.sort_values('Price', ascending=False, inplace=True)
+
+    # Plot average price per city
+    plt.figure(figsize=(12, 6))
+    sns.barplot(data=average_price_per_city, x='Stad', y='Price', palette='viridis')
+    plt.title('Average Price by City')
+    plt.xlabel('City')
     plt.ylabel('Average Price')
+    plt.xticks(rotation=90)
+    plt.tight_layout()
     plt.show()
 
 cldata = clean_data(properties)
