@@ -61,18 +61,34 @@ def analyze_data(properties):
     plt.tight_layout()
     plt.show()
 
-    # Select only numeric columns for correlation calculation
-    numeric_columns = properties.select_dtypes(include=['float64', 'int64']).columns
-    numeric_properties = properties[numeric_columns]
+    """
+    The line properties_unique_stad = properties.drop_duplicates(subset='Stad') is used to filter 
+    the DataFrame and keep only the unique rows based on the "Stad" column.
+    Once we have the DataFrame with unique "Stad" values, we can proceed to calculate the average
+    price per "Stad" using the groupby operation and display the results.
+    """
+    properties_unique_stad = properties.drop_duplicates(subset='Stad')
+    properties_unique_stad['Price'] = pd.to_numeric(properties_unique_stad['Price'], errors='coerce')
 
-    # Calculate correlation matrix
-    correlation_matrix = numeric_properties.corr()
+    # Create pivot table of average prices per "Stad" with the corresponding region
+    avg_price_per_stad = properties_unique_stad.pivot_table(values='Price', index='Stad', columns='Region', aggfunc='mean')
+    avg_price_per_stad_sorted = avg_price_per_stad.mean(axis=1).sort_values(ascending=False).reset_index()
 
-    # Sort variables by their correlation with the price
-    price_column = properties['Price']
-    price_correlation = correlation_matrix[price_column].abs().sort_values(ascending=False)
+    # Get the corresponding region for each "Stad"
+    avg_price_per_stad_sorted['Region'] = avg_price_per_stad_sorted['Stad'].map(properties_unique_stad.set_index('Stad')['Region'])
+    pd.set_option('display.float_format', '{:.2f}'.format)
+    avg_price_per_stad_sorted = avg_price_per_stad_sorted.reset_index(drop=True).rename(columns={0: 'Price'})
 
-    print(price_correlation)
+    print(avg_price_per_stad_sorted)
+
+    """
+    
+    """
+    qualitative_vars = ['Stad', 'Property type', 'Region', 'Subtype', 'Type of sale', 'Kitchen type', 'Condition']
+
+    # Apply one-hot encoding
+    encoded_data = pd.get_dummies(properties, columns=qualitative_vars)
+    print(encoded_data)
 
 cldata = clean_data(properties)
 analyze_data(cldata)
