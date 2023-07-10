@@ -149,7 +149,7 @@ def analyze_data(properties):
         plt.scatter(subset['Price'], subset['Habitable surface'], label=region)
 
     plt.title('Scatter Plot: Price vs Habitable Surface')
-    plt.xlabel('Price')
+    plt.xlabel('Price in milions')
     plt.ylabel('Habitable Surface')
     plt.legend()
     plt.show()
@@ -199,6 +199,59 @@ def analyze_data(properties):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
+    """What are the **most** expensive municipalities in Wallonia? (Average price, median price, price per square meter;
+    First let's filter all properties for WALLONIE. Than we calculate the average, median and average per square meter per city.
+    Then we will create a new df  where we put our values in.
+    """
+
+    wallonie_properties = properties[properties['Region'] == 'WALLONIE']
+
+    average_price_stad = wallonie_properties.groupby('Stad')['Price'].mean().sort_values(ascending=False).head(10)
+
+    median_price_stad = wallonie_properties.groupby('Stad')['Price'].median().sort_values(ascending=False).head(10)
+
+    wallonie_properties.loc['Price per sqm'] = wallonie_properties['Price'] / wallonie_properties['Habitable surface']
+    price_per_sqm_stad = wallonie_properties.groupby('Stad')['Price per sqm'].mean().sort_values(ascending=False).head(10)
+
+    table = pd.DataFrame({
+        'Stad': average_price_stad.index,
+        'Average Price': average_price_stad.values,
+        'Median Price': median_price_stad.values,
+        'Average Price per Sqm': price_per_sqm_stad.values
+    })
+
+    table = table.sort_values(by='Average Price', ascending=False)
+    table.columns = ['Stad', 'Average Price', 'Median Price', 'Average Price per Sqm']
+    table = table.sort_values(by='Average Price', ascending=False)
+
+    print(table)
+
+    """What are the **most** expensive municipalities in Flanders? (Average price, median price, price per square meter)
+    So we will start with filtering properties Region=FLANDERS. Then we will calculate the average median and average/sqm.
+    We will put our found data in a new dataframe. and after that We will sort it for average price. Almost the same as Wallonie
+    """
+
+    flanders_properties = properties[properties['Region'] == 'FLANDERS'].copy()
+
+    average_price_municipality = flanders_properties.groupby('Stad')['Price'].mean().sort_values(ascending=False).head(10)
+
+    median_price_municipality = flanders_properties.groupby('Stad')['Price'].median().sort_values(ascending=False).head(10)
+
+    flanders_properties.loc[:, 'Price per sqm'] = flanders_properties['Price'] / flanders_properties['Habitable surface']
+    price_per_sqm_municipality = flanders_properties.groupby('Stad')['Price per sqm'].mean().sort_values(ascending=False).head(10)
+
+    table = pd.DataFrame({
+        'Municipality': average_price_municipality.index,
+        'Average Price': average_price_municipality.values.astype(int),
+        'Median Price': median_price_municipality.values,
+        'Average Price per Sqm': price_per_sqm_municipality.values
+    })
+
+    table = table.sort_values(by='Average Price', ascending=False)
+
+    print(table)
+
 
 cldata = clean_data(properties)
 analyze_data(cldata)
