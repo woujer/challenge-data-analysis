@@ -39,6 +39,21 @@ def clean_data(properties):
     """
     Drop rows with missing values and reset the index.
     """
+    city_variations = {
+        'Knokke-Het Zoute': 'Knokke-Zoute',
+        'KNOKKE-ZOUTE': 'Knokke-Zoute',
+        'Knokke-Zoute': 'Knokke-Zoute'
+    }
+    properties['Stad'] = properties['Stad'].replace(city_variations)
+    
+    city_variations= {
+        'Knokke-Heist':'Knokke-Heist',
+        'Knokke-Heist Knokke':'Knokke-Heist',
+        'KNOKKE': 'Knokke-Heist',
+        '8300':'Knokke-Heist'
+    }
+    properties['Stad'] = properties['Stad'].replace(city_variations)
+
     properties.dropna(inplace=True)
     properties.reset_index(drop=True, inplace=True)
     
@@ -158,9 +173,32 @@ def analyze_data(properties):
     In my opinion the most important variables are: Price, ID , Habitable surface, Stad,Garden surface
     """
     """What are the **most** expensive municipalities in Belgium? (Average price, median price, price per square meter)
-    
+    We will calculate the average median and average per square meter. Then we will print a list.
     """
+    average_price_stad = properties.groupby('Stad')['Price'].mean().sort_values(ascending=False)
 
+    median_price_stad = properties.groupby('Stad')['Price'].median().sort_values(ascending=False)
+
+    properties['Price per sqm'] = properties['Price'] / properties['Habitable surface']
+    price_per_sqm_stad = properties.groupby('Stad')['Price per sqm'].mean().sort_values(ascending=False)
+
+    print("Most Expensive cities by Average Price:")
+    print(average_price_stad.head(10))
+
+    print("\nMost Expensive cities by Median Price:")
+    print(median_price_stad.head(10))
+
+    print("\nMost Expensive citys by Price per Square Meter:")
+    print(price_per_sqm_stad.head(10))
+    
+    plt.figure(figsize=(12, 6))
+    price_per_sqm_stad.head(10).plot(kind='bar')
+    plt.title('Most Expensive Cities by Price per Square Meter')
+    plt.xlabel('City (Stad)')
+    plt.ylabel('Average Price per Square Meter')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
 
 cldata = clean_data(properties)
 analyze_data(cldata)
