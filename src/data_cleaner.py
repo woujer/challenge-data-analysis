@@ -43,6 +43,8 @@ def clean_data(properties):
     properties.reset_index(drop=True, inplace=True)
     
     return properties
+
+
 def analyze_data(properties):
     """
     We print the number of rows and number of columns.
@@ -99,7 +101,7 @@ def analyze_data(properties):
     table = filtered_properties[['Habitable surface', 'Garden surface', 'Price','Stad','Kitchen type', 'Construction year']]
 
     table = table.sort_values('Price', ascending=False)
-    print(table.head(30))
+    print(table.head(25))
 
     """Checking for qualitative or quantitative values
     """
@@ -127,7 +129,8 @@ def analyze_data(properties):
     """
     plt.figure(figsize=(12, 6))
     for region in ['BRUSSELS', 'WALLONIE', 'FLANDERS']:
-        subset = cldata[cldata['Region'] == region]
+        subset = properties[properties
+        ['Region'] == region]
         plt.scatter(subset['Price'], subset['Habitable surface'], label=region)
 
     plt.title('Scatter Plot: Price vs Habitable Surface')
@@ -143,12 +146,12 @@ def analyze_data(properties):
     """Represent the number of properties according to their surface using a histogram.
     """
     plt.figure(figsize=(12, 6))
-    bins = range(0, 2000, 100)  # Define the bin edges
-    plt.hist(cldata['Habitable surface'], bins=bins, edgecolor='black')
+    bins = range(0, 2000, 100) 
+    plt.hist(properties['Habitable surface'], bins=bins, edgecolor='black')
     plt.title('Number of Properties by Surface')
     plt.xlabel('Habitable Surface')
     plt.ylabel('Count')
-    plt.xticks(bins)  # Set the x-axis tick locations to match the bin edges
+    plt.xticks(bins) 
     plt.show()
 
     """In your opinion, which 5 variables are the most important and why?
