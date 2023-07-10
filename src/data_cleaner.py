@@ -173,7 +173,9 @@ def analyze_data(properties):
     In my opinion the most important variables are: Price, ID , Habitable surface, Stad,Garden surface
     """
     """What are the **most** expensive municipalities in Belgium? (Average price, median price, price per square meter)
-    We will calculate the average median and average per square meter. Then we will print a list.
+    We will calculate the average median and average per square meter. Then we will print a list of the median and the average.
+    I made a barplot visualization of the average/sqm in a bar plot.
+    
     """
     average_price_stad = properties.groupby('Stad')['Price'].mean().sort_values(ascending=False)
 
@@ -188,8 +190,6 @@ def analyze_data(properties):
     print("\nMost Expensive cities by Median Price:")
     print(median_price_stad.head(10))
 
-    print("\nMost Expensive citys by Price per Square Meter:")
-    print(price_per_sqm_stad.head(10))
     
     plt.figure(figsize=(12, 6))
     price_per_sqm_stad.head(10).plot(kind='bar')
