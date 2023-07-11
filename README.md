@@ -1,4 +1,5 @@
 # Challenge data collection Immo Eliza
+## Description
 The provided Python 3 program performs data analysis on a CSV file containing house details. The code utilizes various libraries such as Pandas, NumPy, Matplotlib, and Seaborn for data manipulation, cleaning, visualization, and analysis.
 
 The clean_data function is responsible for preprocessing the data. It drops duplicate rows based on the 'id' column, removes leading and trailing white spaces from string columns, updates specific columns based on given conditions, drops rows with missing values, and performs some data transformations.
