@@ -252,6 +252,73 @@ def analyze_data(properties):
 
     print(table)
 
+    """What are the **less** expensive municipalities in Belgium? (Average price, median price, price per square meter)
+    First we filter out all rows with negative values or NaN, then we will calculate the average,median,sqrm
+    than we will create a table and print out the first 10 values
+    """
+    valid_properties = properties[(properties['Price'] > 0) & (properties['Price'].notna())]
+
+    average_price_municipality = valid_properties.groupby('Stad')['Price'].mean()
+    median_price_municipality = valid_properties.groupby('Stad')['Price'].median()
+    price_per_sqm_municipality = valid_properties.groupby('Stad')['Price per sqm'].mean()
+
+    table = pd.DataFrame({
+        'Municipality': average_price_municipality.index,
+        'Average Price': average_price_municipality.values.astype(int),
+        'Median Price': median_price_municipality.values,
+        'Average Price per Sqm': price_per_sqm_municipality.values
+    })
+
+    table = table.sort_values(by='Average Price')
+
+    print(table.head(10))
+
+    """What are the **less** expensive municipalities in Flanders? (Average price, median price, price per square meter)
+    First we will filter out all properties with FLANDERS region, than fiilter rows and negative values
+    """
+    flanders_properties = properties[properties['Region'] == 'FLANDERS']
+
+    valid_flanders_properties = flanders_properties[(flanders_properties['Price'] > 0) & (flanders_properties['Price'].notna())]
+
+    average_price_municipality_flanders = valid_flanders_properties.groupby('Stad')['Price'].mean()
+    median_price_municipality_flanders = valid_flanders_properties.groupby('Stad')['Price'].median()
+    price_per_sqm_municipality_flanders = valid_flanders_properties.groupby('Stad')['Price per sqm'].mean()
+
+    table_flanders = pd.DataFrame({
+        'Municipality': average_price_municipality_flanders.index,
+        'Average Price': average_price_municipality_flanders.values.astype(int),
+        'Median Price': median_price_municipality_flanders.values,
+        'Average Price per Sqm': price_per_sqm_municipality_flanders.values
+    })
+
+    table_flanders = table_flanders.sort_values(by='Average Price')
+
+    print("Municipalities in FLANDERS:")
+    print(table_flanders.head(10))
+    """- What are the **less** expensive municipalities in Wallonia? (Average price, median price, price per square meter)
+    We do exactly the same as we did in previous codee.
+    """
+    wallonie_properties = properties[properties['Region'] == 'WALLONIE']
+
+    valid_wallonie_properties = wallonie_properties[(wallonie_properties['Price'] > 0) & (wallonie_properties['Price'].notna())]
+
+    average_price_municipality_wallonie = valid_wallonie_properties.groupby('Municipality')['Price'].mean()
+    median_price_municipality_wallonie = valid_wallonie_properties.groupby('Municipality')['Price'].median()
+    price_per_sqm_municipality_wallonie = valid_wallonie_properties.groupby('Municipality')['Price per sqm'].mean()
+
+    table_wallonie = pd.DataFrame({
+        'Municipality': average_price_municipality_wallonie.index,
+        'Average Price': average_price_municipality_wallonie.values.astype(int),
+        'Median Price': median_price_municipality_wallonie.values,
+        'Average Price per Sqm': price_per_sqm_municipality_wallonie.values
+    })
+
+    table_wallonie = table_wallonie.sort_values(by='Average Price')
+
+    print("Municipalities in WALLONIE:")
+    print(table_wallonie.head(10))
+
+
 
 cldata = clean_data(properties)
 analyze_data(cldata)
