@@ -36,6 +36,12 @@ This will install the necessary Python libraries (`pandas`, `numpy`, `matplotlib
 
 4. Place the `house_details_v1.csv` file in the same directory as your Python script.
 5. You are now ready to use the project. Run the Python script to execute the data analysis:
+   python your_script_name.py
+
+Make sure to replace `your_script_name.py` with the name of your Python script file.
+By following these steps, you should be able to set up the project and run the data analysis on your local machine.
+Note: The installation instructions assume that you have Git and Python installed on your machine. If not, please install them before proceeding with the steps above.
+
 
 
 
