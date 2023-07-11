@@ -38,8 +38,7 @@ Note: The installation instructions assume that you have Git and Python installe
 
     Data analysis: The project offers various data analysis capabilities. It calculates the number of rows and columns, explores correlations between variables and price, identifies influential variables, and analyzes the distribution of property surfaces using histograms.
 
-    Visualizations: The project utilizes the Matplotlib and Seabo
-    rn libraries to create visualizations. It generates bar plots to showcase the average price by region and the most expensive cities by price per square meter. It also includes scatter plots to highlight the relationship between price and habitable surface.
+    Visualizations: The project utilizes the Matplotlib and Seaborn libraries to create visualizations. It generates bar plots to showcase the average price by region and the most expensive cities by price per square meter. It also includes scatter plots to highlight the relationship between price and habitable surface.
 
     Insights and interpretations: The project provides insights and interpretations based on the data analysis. It identifies the most and least expensive municipalities in Belgium, Wallonia, and Flanders. It examines the importance of variables in determining price and suggests variables to be deleted based on their influence. It also calculates the percentage of missing values and offers troubleshooting tips.
 
