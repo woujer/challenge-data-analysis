@@ -46,5 +46,17 @@ Note: The installation instructions assume that you have Git and Python installe
 
     User-friendly documentation: The project includes a README.md file with clear instructions for installation, usage, and contribution. It aims to provide an accessible and user-friendly guide for users and developers.
 
+## Configuration
+To configure or customize the project, follow the steps below:
+
+    Open the Python script file in a text editor of your choice.
+
+    Modify the specific columns based on the given conditions in the clean_data function. This allows you to tailor the data cleaning process to your specific needs.
+
+    Adjust any settings or variables in the script that are marked for customization. These may include file paths, data filters, or visualizations parameters.
+
+    Save the modified Python script file.
+
+By following these steps, you can easily configure the project to suit your requirements
 
 
