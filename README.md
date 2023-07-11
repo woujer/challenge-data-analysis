@@ -15,15 +15,6 @@ Please note that the provided description assumes the code is functioning correc
 To run this project, follow the steps below:
 
 1. Clone the repository to your local machine using the following command:
-   Certainly! Here's the installation section text that you can copy directly into your README.md:
-
-arduino
-
-## Installation
-
-To run this project, follow the steps below:
-
-1. Clone the repository to your local machine using the following command:
   git clone https://github.com/your-username/your-repository.git
 
 2. Navigate to the project directory:
