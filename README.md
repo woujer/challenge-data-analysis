@@ -1,4 +1,4 @@
-# Challenge data collection Immo Eliza
+# Part 1 Challenge data collection Immo Eliza
 ## Description
 The provided Python 3 program performs data analysis on a CSV file containing house details. The code utilizes various libraries such as Pandas, NumPy, Matplotlib, and Seaborn for data manipulation, cleaning, visualization, and analysis.
 
@@ -59,17 +59,29 @@ To configure or customize the project, follow the steps below:
 
 By following these steps, you can easily configure the project to suit your requirements
 
-## Credits 
-This project wouldn't have been possible without the contribution of various individuals and resources. We would like to acknowledge the following:
+# Part 2 Challenge_recursion
 
-    Pandas: A powerful data manipulation library for Python that greatly facilitated data cleaning and analysis.
+This repository contains code for performing a regression analysis on property prices using various regression techniques. The dataset used in this analysis is assumed to be in the variable properties, and the goal is to predict property prices based on features such as Habitable surface, Bedroom Count, and Garden surface. The code also includes data cleaning steps and visualizations to aid in the analysis.
+Requirements
 
-    NumPy: A fundamental package for scientific computing in Python that provided efficient numerical operations and array manipulation capabilities.
+    pandas
+    numpy
+    scikit-learn
+    matplotlib
 
-    Matplotlib and Seaborn: Libraries that enabled us to create insightful visualizations to analyze the data and present the results.
+Data Cleaning
 
-We would also like to express our gratitude to the open-source community for sharing valuable knowledge and resources that have contributed to the development of this project.
+The data_clean function is responsible for cleaning the dataset. However, it should be noted that the current data cleaning implementation is not ideal due to time constraints. There might be some issues with dropping too many columns and not handling missing values effectively. Improving the data cleaning process could potentially lead to better model performance.
+Data Analysis and Regression
 
-Please refer to the individual documentation and websites of these resources for more information on their usage and contributions.
+The data_analyse function performs data analysis and regression on the cleaned dataset. The steps include:
 
-Feel free to modify the "Credits" section to include any other individuals, libraries, frameworks, or resources that played a significant role in the development of your project.
+    Splitting the data into training and testing sets.
+    Implementing Polynomial Linear Regression, Stochastic Gradient Descent (SGD) Regression, and Decision Tree Regression.
+    Displaying training and testing scores for each regression model.
+    Plotting the actual vs. predicted prices for each regression model.
+
+Usage
+
+To use this code, make sure you have installed the required libraries. You can then execute the code and observe the regression analysis results.
+
