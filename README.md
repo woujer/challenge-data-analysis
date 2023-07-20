@@ -1,4 +1,4 @@
-# Challenge data collection Immo Eliza
+# Part 1 Challenge data collection Immo Eliza
 ## Description
 The provided Python 3 program performs data analysis on a CSV file containing house details. The code utilizes various libraries such as Pandas, NumPy, Matplotlib, and Seaborn for data manipulation, cleaning, visualization, and analysis.
 
@@ -73,3 +73,33 @@ We would also like to express our gratitude to the open-source community for sha
 Please refer to the individual documentation and websites of these resources for more information on their usage and contributions.
 
 Feel free to modify the "Credits" section to include any other individuals, libraries, frameworks, or resources that played a significant role in the development of your project.
+
+# Part 2 Challenge_recursion
+
+This repository contains code for performing a regression analysis on property prices using various regression techniques. The dataset used in this analysis is assumed to be in the variable properties, and the goal is to predict property prices based on features such as Habitable surface, Bedroom Count, and Garden surface. The code also includes data cleaning steps and visualizations to aid in the analysis.
+Requirements
+
+    pandas
+    numpy
+    scikit-learn
+    matplotlib
+
+Data Cleaning
+
+The data_clean function is responsible for cleaning the dataset. However, it should be noted that the current data cleaning implementation is not ideal due to time constraints. There might be some issues with dropping too many columns and not handling missing values effectively. Improving the data cleaning process could potentially lead to better model performance.
+Data Analysis and Regression
+
+The data_analyse function performs data analysis and regression on the cleaned dataset. The steps include:
+
+    Splitting the data into training and testing sets.
+    Implementing Polynomial Linear Regression, Stochastic Gradient Descent (SGD) Regression, and Decision Tree Regression.
+    Displaying training and testing scores for each regression model.
+    Plotting the actual vs. predicted prices for each regression model.
+
+Usage
+
+To use this code, make sure you have installed the required libraries. You can then execute the code and observe the regression analysis results.
+
+Please note that this code is intended for educational and demonstration purposes and may require further refinement for production-level use.
+
+Happy coding!
