@@ -59,21 +59,6 @@ To configure or customize the project, follow the steps below:
 
 By following these steps, you can easily configure the project to suit your requirements
 
-## Credits 
-This project wouldn't have been possible without the contribution of various individuals and resources. We would like to acknowledge the following:
-
-    Pandas: A powerful data manipulation library for Python that greatly facilitated data cleaning and analysis.
-
-    NumPy: A fundamental package for scientific computing in Python that provided efficient numerical operations and array manipulation capabilities.
-
-    Matplotlib and Seaborn: Libraries that enabled us to create insightful visualizations to analyze the data and present the results.
-
-We would also like to express our gratitude to the open-source community for sharing valuable knowledge and resources that have contributed to the development of this project.
-
-Please refer to the individual documentation and websites of these resources for more information on their usage and contributions.
-
-Feel free to modify the "Credits" section to include any other individuals, libraries, frameworks, or resources that played a significant role in the development of your project.
-
 # Part 2 Challenge_recursion
 
 This repository contains code for performing a regression analysis on property prices using various regression techniques. The dataset used in this analysis is assumed to be in the variable properties, and the goal is to predict property prices based on features such as Habitable surface, Bedroom Count, and Garden surface. The code also includes data cleaning steps and visualizations to aid in the analysis.
@@ -100,6 +85,3 @@ Usage
 
 To use this code, make sure you have installed the required libraries. You can then execute the code and observe the regression analysis results.
 
-Please note that this code is intended for educational and demonstration purposes and may require further refinement for production-level use.
-
-Happy coding!
