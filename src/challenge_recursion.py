@@ -169,6 +169,8 @@ def data_analyse(properties):
     predicted_price_tree = regressor_tree.predict(sample_input)
     print("Predicted Price (Tree regression):", predicted_price_tree[0])
 
+    """We will calculate all mean squared errors"""
+
     y_train_pred_poly = regressor_poly.predict(X_poly_train)
     y_test_pred_poly = regressor_poly.predict(X_poly_test)
     mse_poly_train = mean_squared_error(y_train, y_train_pred_poly)
@@ -193,7 +195,4 @@ def data_analyse(properties):
     print("Decision Tree Regression Training MSE:", mse_tree_train)
     print("Decision Tree Regression Testing MSE:", mse_tree_test)
 
-    """The rest of your plotting and prediction code remains unchanged."""
-
-    return properties
     return properties
