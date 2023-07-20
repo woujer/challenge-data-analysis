@@ -1,10 +1,10 @@
-
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression, SGDRegressor 
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
+from sklearn.linear_model import LinearRegression, SGDRegressor
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import mean_squared_error  
 import matplotlib.pyplot as plt
 
 
@@ -168,4 +168,32 @@ def data_analyse(properties):
 
     predicted_price_tree = regressor_tree.predict(sample_input)
     print("Predicted Price (Tree regression):", predicted_price_tree[0])
+
+    y_train_pred_poly = regressor_poly.predict(X_poly_train)
+    y_test_pred_poly = regressor_poly.predict(X_poly_test)
+    mse_poly_train = mean_squared_error(y_train, y_train_pred_poly)
+    mse_poly_test = mean_squared_error(y_test, y_test_pred_poly)
+
+    y_train_pred_sgd = regressor_sgd.predict(X_train)
+    y_test_pred_sgd = regressor_sgd.predict(X_test)
+    mse_sgd_train = mean_squared_error(y_train, y_train_pred_sgd)
+    mse_sgd_test = mean_squared_error(y_test, y_test_pred_sgd)
+
+    y_train_pred_tree = regressor_tree.predict(X_train)
+    y_test_pred_tree = regressor_tree.predict(X_test)
+    mse_tree_train = mean_squared_error(y_train, y_train_pred_tree)
+    mse_tree_test = mean_squared_error(y_test, y_test_pred_tree)
+
+    print("Polynomial Regression Training MSE:", mse_poly_train)
+    print("Polynomial Regression Testing MSE:", mse_poly_test)
+
+    print("SGD Regression Training MSE:", mse_sgd_train)
+    print("SGD Regression Testing MSE:", mse_sgd_test)
+
+    print("Decision Tree Regression Training MSE:", mse_tree_train)
+    print("Decision Tree Regression Testing MSE:", mse_tree_test)
+
+    """The rest of your plotting and prediction code remains unchanged."""
+
+    return properties
     return properties
