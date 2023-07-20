@@ -32,7 +32,7 @@ def clean_data(properties):
     properties['Construction year'] = pd.to_numeric(properties['Construction year'], errors='coerce')
     properties.loc[properties['Construction year'] == 0, 'Construction year'] = 'UNKNOWN'
     properties['Habitable surface'] = pd.to_numeric(properties['Habitable surface'], errors='coerce')
-    properties.loc[properties['Habitable surface'] == 0, 'Habitable surface'] = 'UNKNOWN'
+    properties.loc[properties['Habitable surface'] <= 0, 'Habitable surface'] = 'UNKNOWN'
     properties = properties[properties['Region'].isin(['BRUSSELS', 'WALLONIE', 'FLANDERS'])]
     properties.loc[properties['Kitchen type'] == '0', 'Kitchen type'] = 'UNKNOWN'
     
@@ -178,27 +178,31 @@ def analyze_data(properties):
     
     """
     average_price_stad = properties.groupby('Stad')['Price'].mean().sort_values(ascending=False)
-
     median_price_stad = properties.groupby('Stad')['Price'].median().sort_values(ascending=False)
-
     properties['Price per sqm'] = properties['Price'] / properties['Habitable surface']
     price_per_sqm_stad = properties.groupby('Stad')['Price per sqm'].mean().sort_values(ascending=False)
 
-    print("Most Expensive cities by Average Price:")
-    print(average_price_stad.head(10))
+    color_dict = {'BRUSSELS': 'blue', 'WALLONIE': 'green', 'FLANDERS': 'orange'}
 
-    print("\nMost Expensive cities by Median Price:")
-    print(median_price_stad.head(10))
-
-    
     plt.figure(figsize=(12, 6))
-    price_per_sqm_stad.head(10).plot(kind='bar')
+    top_10_stads = price_per_sqm_stad.head(10)
+    regions = [properties[properties['Stad'] == stad]['Region'].iloc[0] for stad in top_10_stads.index]
+    colors = [color_dict[region] for region in regions]
+    top_10_stads.plot(kind='bar', color=colors)
+
     plt.title('Most Expensive Cities by Price per Square Meter')
     plt.xlabel('City (Stad)')
     plt.ylabel('Average Price per Square Meter')
     plt.xticks(rotation=45)
     plt.tight_layout()
+
+    legend_colors = [plt.Rectangle((0, 0), 1, 1, color=color) for color in color_dict.values()]
+    legend_labels = list(color_dict.keys())
+    plt.legend(legend_colors, legend_labels, loc='upper right')
+
     plt.show()
+
+
 
     """What are the **most** expensive municipalities in Wallonia? (Average price, median price, price per square meter;
     First let's filter all properties for WALLONIE. Than we calculate the average, median and average per square meter per city.
@@ -302,9 +306,9 @@ def analyze_data(properties):
 
     valid_wallonie_properties = wallonie_properties[(wallonie_properties['Price'] > 0) & (wallonie_properties['Price'].notna())]
 
-    average_price_municipality_wallonie = valid_wallonie_properties.groupby('Municipality')['Price'].mean()
-    median_price_municipality_wallonie = valid_wallonie_properties.groupby('Municipality')['Price'].median()
-    price_per_sqm_municipality_wallonie = valid_wallonie_properties.groupby('Municipality')['Price per sqm'].mean()
+    average_price_municipality_wallonie = valid_wallonie_properties.groupby('Stad')['Price'].mean()
+    median_price_municipality_wallonie = valid_wallonie_properties.groupby('Stad')['Price'].median()
+    price_per_sqm_municipality_wallonie = valid_wallonie_properties.groupby('Stad')['Price per sqm'].mean()
 
     table_wallonie = pd.DataFrame({
         'Municipality': average_price_municipality_wallonie.index,
@@ -320,5 +324,3 @@ def analyze_data(properties):
 
 
 
-cldata = clean_data(properties)
-analyze_data(cldata)
