@@ -6,6 +6,7 @@ from sklearn.linear_model import LinearRegression, SGDRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error  
 import matplotlib.pyplot as plt
+import pickle
 
 
 """Data cleaning part i'm not happy with it cause of lack of time i wasn't able to make a good cleaner
@@ -76,6 +77,10 @@ def data_analyse(properties):
     """
     regressor_tree = DecisionTreeRegressor(random_state=42)
     regressor_tree.fit(X_train, y_train)
+
+    models_directory = "challenge-data-analysis/models/"
+    with open(models_directory + "decision_tree_model.pkl", 'wb') as file:
+        pickle.dump(regressor_tree, file)
 
     print("Decision Tree Regression Training score:", regressor_tree.score(X_train, y_train))
     print("Decision Tree Regression Testing score:", regressor_tree.score(X_test, y_test))
