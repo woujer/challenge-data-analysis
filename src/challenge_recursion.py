@@ -78,9 +78,8 @@ def data_analyse(properties):
     regressor_tree = DecisionTreeRegressor(random_state=42)
     regressor_tree.fit(X_train, y_train)
 
-    models_directory = "challenge-data-analysis/models/"
-    with open(models_directory + "decision_tree_model.pkl", 'wb') as file:
-        pickle.dump(regressor_tree, file)
+    with open("descision_tree.pickle", "wb") as pickle_out:
+        pickle.dump(regressor_tree, pickle_out)
 
     print("Decision Tree Regression Training score:", regressor_tree.score(X_train, y_train))
     print("Decision Tree Regression Testing score:", regressor_tree.score(X_test, y_test))

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
+import  pickle
 
 
 class Input(BaseModel):
@@ -9,13 +10,17 @@ class Input(BaseModel):
     garden_surface : int
 
 def predict_new_data(data):
-    
-    trained_model = joblib.load("C:\\Users\\woute\\Desktop\\Dev\\Projects\\BeCode\\challenge-data-analysis\\challenge-data-analysis\\models\\decision_tree_model.pkl")
-
-    X =[[data.habitable_surface,
-         data.bed_count,
-         data.garden_surface
-         ]]
-    
-    predict = trained_model.predict(X)
-    return predict
+    try:
+        pickle_in = open('C:\\Users\\woute\\Desktop\\Dev\\Projects\\BeCode\\challenge-data-analysis\\challenge-data-analysis\\models\\descision_tree.pickle', 'rb')
+        model = pickle.load(pickle_in)
+        
+        prediction = model.predict(data)
+        return {"prediction": prediction.tolist()}
+    except TypeError:
+        return "Type error use the correct type"
+    except KeyError:
+        return "No key like that"
+    except SyntaxError:
+        return "wrong Syntax"
+    except KeyError:
+        return "Enter a correct key"
