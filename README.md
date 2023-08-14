@@ -85,3 +85,51 @@ Usage
 
 To use this code, make sure you have installed the required libraries. You can then execute the code and observe the regression analysis results.
 
+# Part 3: Deployment
+
+This project implements a simple FastAPI API to predict the price of a house based on input features. The model used for prediction is a decision tree model.
+
+## Requirements
+
+- Python 3.10
+- FastAPI
+- uvicorn
+- pickle
+
+## Setup and Usage
+
+1. Clone the repository to your local machine.
+2. Install the required dependencies using the following command: pip install -r requirements.txt
+3. To start the FastAPI app, run the following command: uvicorn app:app --host 0.0.0.0 --port 8000
+
+4. The API will be accessible at `http://localhost:8000`.
+
+## Endpoints
+
+### `GET /`
+
+This endpoint returns a simple string explaining the format of data expected for the prediction.
+
+### `POST /predict_price`
+
+This endpoint accepts a POST request with JSON data containing the features of the house to predict. The required format is as follows:
+
+```json
+{
+ "habbitable_surface": 150,
+ "bedroom_count": 3,
+ "garden_surface": 200
+}
+
+## Docker Support
+You can also run the House Price Prediction API inside a Docker container. To do this, follow these steps:
+
+1. Build the Docker image using the following command: docker build -t house-price-prediction .
+2. Run the Docker container using the following command:docker run -d -p 8000:8000 house-price-prediction
+
+The API will be accessible at http://localhost:8000.
+
+Please make sure to adjust the paths and file names in the code to match your specific project structure and file locations.
+
+# Author
+Wouter Daneels

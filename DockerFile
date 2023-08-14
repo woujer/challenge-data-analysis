@@ -1,0 +1,19 @@
+FROM python:3.10
+
+WORKDIR /app
+
+COPY app.py /app/app.py
+COPY src/preprocessing.py /app/src/preprocessing.py
+COPY src/predict.py /app/src/predict.py
+COPY models/ /app/models/
+COPY requirements.txt /app/requirements.txt
+COPY data/ /app/data/
+COPY notebooks/ /app/notebooks/
+COPY model-building/ /app/model-building/
+COPY output/ /app/output/
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+EXPOSE 8000
+
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
